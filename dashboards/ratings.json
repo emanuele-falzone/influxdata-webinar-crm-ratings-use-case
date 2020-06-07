@@ -1,0 +1,309 @@
+{
+ "meta": {
+  "version": "1",
+  "type": "dashboard",
+  "name": "Ratings-Template",
+  "description": "template created from dashboard: Ratings"
+ },
+ "content": {
+  "data": {
+   "type": "dashboard",
+   "attributes": {
+    "name": "Ratings",
+    "description": ""
+   },
+   "relationships": {
+    "label": {
+     "data": []
+    },
+    "cell": {
+     "data": [
+      {
+       "type": "cell",
+       "id": "05d00fbbe6f5a000"
+      },
+      {
+       "type": "cell",
+       "id": "05d01143d3b5a000"
+      },
+      {
+       "type": "cell",
+       "id": "05d01bf38175a000"
+      }
+     ]
+    },
+    "variable": {
+     "data": []
+    }
+   }
+  },
+  "included": [
+   {
+    "id": "05d00fbbe6f5a000",
+    "type": "cell",
+    "attributes": {
+     "x": 0,
+     "y": 0,
+     "w": 12,
+     "h": 5
+    },
+    "relationships": {
+     "view": {
+      "data": {
+       "type": "view",
+       "id": "05d00fbbe6f5a000"
+      }
+     }
+    }
+   },
+   {
+    "id": "05d01143d3b5a000",
+    "type": "cell",
+    "attributes": {
+     "x": 4,
+     "y": 5,
+     "w": 8,
+     "h": 4
+    },
+    "relationships": {
+     "view": {
+      "data": {
+       "type": "view",
+       "id": "05d01143d3b5a000"
+      }
+     }
+    }
+   },
+   {
+    "id": "05d01bf38175a000",
+    "type": "cell",
+    "attributes": {
+     "x": 0,
+     "y": 5,
+     "w": 4,
+     "h": 4
+    },
+    "relationships": {
+     "view": {
+      "data": {
+       "type": "view",
+       "id": "05d01bf38175a000"
+      }
+     }
+    }
+   },
+   {
+    "type": "view",
+    "id": "05d00fbbe6f5a000",
+    "attributes": {
+     "name": "Stars by channel",
+     "properties": {
+      "shape": "chronograf-v2",
+      "queries": [
+       {
+        "text": "from(bucket: \"bucket\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"ratings\")\n  |> filter(fn: (r) => r[\"_field\"] == \"STARS\")\n  |> group(columns: [\"CHANNEL\"])\n  |> aggregateWindow(every: 5m, fn: mean)\n  |> yield(name: \"mean\")",
+        "editMode": "advanced",
+        "name": "",
+        "builderConfig": {
+         "buckets": [],
+         "tags": [
+          {
+           "key": "_measurement",
+           "values": [],
+           "aggregateFunctionType": "filter"
+          }
+         ],
+         "functions": [],
+         "aggregateWindow": {
+          "period": "auto"
+         }
+        }
+       }
+      ],
+      "axes": {
+       "x": {
+        "bounds": [
+         "",
+         ""
+        ],
+        "label": "",
+        "prefix": "",
+        "suffix": "",
+        "base": "10",
+        "scale": "linear"
+       },
+       "y": {
+        "bounds": [
+         "",
+         ""
+        ],
+        "label": "Stars",
+        "prefix": "",
+        "suffix": "",
+        "base": "2",
+        "scale": "linear"
+       }
+      },
+      "type": "xy",
+      "legend": {},
+      "geom": "monotoneX",
+      "colors": [
+       {
+        "id": "f2620903-98a6-409a-9a7c-68674c70177e",
+        "type": "scale",
+        "hex": "#31C0F6",
+        "name": "Nineteen Eighty Four",
+        "value": 0
+       },
+       {
+        "id": "92bc8c99-f6c5-43a8-8e87-adf6602a1a0a",
+        "type": "scale",
+        "hex": "#A500A5",
+        "name": "Nineteen Eighty Four",
+        "value": 0
+       },
+       {
+        "id": "d8c52af9-2c06-47c4-8cd5-580983fff3c2",
+        "type": "scale",
+        "hex": "#FF7E27",
+        "name": "Nineteen Eighty Four",
+        "value": 0
+       }
+      ],
+      "note": "",
+      "showNoteWhenEmpty": false,
+      "xColumn": "_time",
+      "yColumn": "_value",
+      "shadeBelow": false,
+      "position": "overlaid",
+      "timeFormat": ""
+     }
+    }
+   },
+   {
+    "type": "view",
+    "id": "05d01143d3b5a000",
+    "attributes": {
+     "name": "Stars",
+     "properties": {
+      "shape": "chronograf-v2",
+      "type": "gauge",
+      "queries": [
+       {
+        "text": "from(bucket: \"bucket\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"ratings\")\n  |> filter(fn: (r) => r[\"_field\"] == \"STARS\")\n  |> group()\n  |> mean()\n  |> yield(name: \"mean\")",
+        "editMode": "advanced",
+        "name": "",
+        "builderConfig": {
+         "buckets": [],
+         "tags": [
+          {
+           "key": "_measurement",
+           "values": [],
+           "aggregateFunctionType": "filter"
+          }
+         ],
+         "functions": [],
+         "aggregateWindow": {
+          "period": "auto"
+         }
+        }
+       }
+      ],
+      "prefix": "",
+      "tickPrefix": "",
+      "suffix": "",
+      "tickSuffix": "",
+      "colors": [
+       {
+        "id": "0",
+        "type": "min",
+        "hex": "#DC4E58",
+        "name": "fire",
+        "value": 0
+       },
+       {
+        "id": "732e2d54-562f-431c-a2e8-5c1afa7704c5",
+        "type": "threshold",
+        "hex": "#FFD255",
+        "name": "thunder",
+        "value": 3
+       },
+       {
+        "id": "b7089ce8-f0a1-4dfc-b589-e460bd27085d",
+        "type": "threshold",
+        "hex": "#4ED8A0",
+        "name": "rainforest",
+        "value": 4
+       },
+       {
+        "id": "1",
+        "type": "max",
+        "hex": "#9394FF",
+        "name": "comet",
+        "value": 5
+       }
+      ],
+      "decimalPlaces": {
+       "isEnforced": true,
+       "digits": 2
+      },
+      "note": "",
+      "showNoteWhenEmpty": false
+     }
+    }
+   },
+   {
+    "type": "view",
+    "id": "05d01bf38175a000",
+    "attributes": {
+     "name": "Count",
+     "properties": {
+      "shape": "chronograf-v2",
+      "type": "single-stat",
+      "queries": [
+       {
+        "text": "from(bucket: \"bucket\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"ratings\")\n  |> count()\n  |> yield(name: \"count\")",
+        "editMode": "advanced",
+        "name": "",
+        "builderConfig": {
+         "buckets": [],
+         "tags": [
+          {
+           "key": "_measurement",
+           "values": [],
+           "aggregateFunctionType": "filter"
+          }
+         ],
+         "functions": [],
+         "aggregateWindow": {
+          "period": "auto"
+         }
+        }
+       }
+      ],
+      "prefix": "",
+      "tickPrefix": "",
+      "suffix": "",
+      "tickSuffix": "",
+      "colors": [
+       {
+        "id": "base",
+        "type": "text",
+        "hex": "#00C9FF",
+        "name": "laser",
+        "value": 0
+       }
+      ],
+      "decimalPlaces": {
+       "isEnforced": true,
+       "digits": 2
+      },
+      "note": "",
+      "showNoteWhenEmpty": false
+     }
+    }
+   }
+  ]
+ },
+ "labels": []
+}
